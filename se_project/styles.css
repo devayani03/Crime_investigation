@@ -1,0 +1,18 @@
+/* Apply styles to QPushButton */
+QPushButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+}
+
+/* Apply styles to QLabel */
+QLabel {
+    font-size: 35px;
+    color: #333;
+}
+
+/* Apply styles to the QMainWindow */
+QMainWindow {
+    background-color: #f0f0f0;
+}
