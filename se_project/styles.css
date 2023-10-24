@@ -16,3 +16,16 @@ QLabel {
 QMainWindow {
     background-color: #f0f0f0;
 }
+
+/* Add this to your styles.css file */
+QPushButton {
+    background-color: #3498db; /* Default background color */
+    color: white; /* Default text color */
+    border: 1px solid #3498db; /* Default border */
+    padding: 5px 15px;
+    margin: 5px;
+}
+
+QPushButton:hover {
+    background-color: #2980b9; /* Background color when hovering */
+}
