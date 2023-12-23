@@ -1,7 +1,8 @@
 import sys
 import chardet
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog, QTextEdit, QTreeWidget, QTreeWidgetItem
-from datetime import datetime
+from datetime import datetime, timedelta
+import winreg
 
 class ScannerApp(QWidget):
     def __init__(self):
@@ -135,10 +136,9 @@ class ScannerApp(QWidget):
     def get_value_info(self, parent_item, key, value):
         # Add logic here to retrieve Name, Type, Data, and Timestamp based on key or value
         name = key
-        value_type = 'String'  # Placeholder, you need to determine the type based on your data
+        value_type = self.get_registry_value_type(value)
         value_data = str(value)
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Placeholder timestamp
-        additional_info = ''  # Placeholder for additional info
+        timestamp, additional_info = self.get_timestamp_info(parent_item, key)
 
         # Add more conditions for other keys or values as needed
         if parent_item is not None and parent_item.text(0) == 'Software' and key == 'Publisher':
@@ -146,6 +146,66 @@ class ScannerApp(QWidget):
             additional_info = 'Example Publisher Info'
 
         return name, value_type, value_data, timestamp, additional_info
+    
+    def get_registry_value_type(self, value):
+        if isinstance(value, int):
+            return 'REG_DWORD'
+        elif isinstance(value, bytes):
+            return 'REG_BINARY'
+        elif isinstance(value, list):
+            return 'REG_MULTI_SZ'
+        else:
+            return 'REG_SZ'
+        
+    def get_timestamp_info(self, parent_item, key):
+        timestamp = ''
+        # additional_info = ''
+
+        # # Add logic to retrieve timestamp and additional info based on key or value
+        # if parent_item is not None and parent_item.text(0) == 'Software' and key == 'Publisher':
+        #     # Example: Retrieve timestamp and additional info for the 'Publisher' key under 'Software'
+        #     timestamp_key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Publisher'
+        #     if key == 'Publisher' and timestamp_key in parent_item.text(0):
+        #         # Check if the key is 'Publisher' under the specified path
+        #         timestamp = self.get_registry_timestamp(parent_item, key)
+        #         additional_info = 'Example Publisher Info'
+
+        # return timestamp, additional_info
+        additional_info = ''
+
+        # Add logic to retrieve timestamp and additional info based on key or value
+        if parent_item is not None and parent_item.text(0) == 'Software' and key == 'Publisher':
+            # Example: Retrieve timestamp and additional info for the 'Publisher' key under 'Software'
+            timestamp_key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Publisher'
+            if key == 'Publisher' and timestamp_key in parent_item.text(0):
+                # Check if the key is 'Publisher' under the specified path
+                timestamp, additional_info = self.get_registry_timestamp(parent_item, key)
+
+        return timestamp, additional_info
+
+    def get_registry_timestamp(self, parent_item, key):
+        # # Placeholder for retrieving timestamp from the registry
+        # # You need to replace this with the actual code to get timestamps from the registry
+        # # For demonstration purposes, a placeholder timestamp is returned
+        # return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        timestamp = ''
+    
+        try:
+            # Construct the full registry key path
+            registry_key_path = '\\'.join([parent_item.text(0), key])
+
+            # Open the registry key in read-only mode
+            with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, registry_key_path, 0, winreg.KEY_READ) as registry_key:
+                # Retrieve the last modification time of the registry key
+                timestamp = winreg.QueryInfoKey(registry_key)[2]
+
+                # Convert the Windows timestamp to a Python datetime object
+                timestamp = datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
+
+        except Exception as e:
+            print(f"Error retrieving timestamp for {registry_key_path}: {str(e)}")
+
+        return timestamp, ''
 
     def start_scanning(self):
         # Placeholder for scanning functionality
