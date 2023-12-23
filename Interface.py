@@ -324,7 +324,7 @@ class UserInterface:
         self.rep_log("Opened Hash Generator")
         self.hash_gui = Toplevel()
         self.center_window(self.hash_gui, 353, 150)
-        self.hash_gui.title("RegSmart: Hash Generator")
+        self.hash_gui.title("reganalyser: Hash Generator")
         self.hash_gui.iconbitmap("data/img/icon.ico")
 
         r = 1
@@ -411,10 +411,10 @@ class UserInterface:
 
         editmenu.add_command(label="System Analysis", command=self.system_analysis)
         editmenu.add_command(label="OS Analysis", command=self.os_analysis)
-        editmenu.add_command(label="Application Analysis", command=self.application_analysis)
+        # editmenu.add_command(label="Application Analysis", command=self.application_analysis)
         editmenu.add_command(label="Network Analysis", command=self.network_analysis)
         editmenu.add_command(label="Device Analysis", command=self.device_analysis)
-        editmenu.add_command(label="ShimCache Analysis", command=self.shim_cache_gui)
+        # editmenu.add_command(label="ShimCache Analysis", command=self.shim_cache_gui)
         editmenu.add_command(label="Registry Viewer", command=self.regview)
         editmenu.add_command(label="Hash Generator", command=self.hash_checker)
         editmenu.add_command(label="Report", command=self.make_report)
@@ -472,7 +472,7 @@ class UserInterface:
         logging.info("Initiated about window", extra={'investigator': self.investigator})
 
         about = Toplevel(bg='white')
-        about.title("RegSmart")
+        about.title("reganalyser")
         about.iconbitmap("data/img/icon.ico")
         frame = Frame(about, width=400, height=100, bg='white')
         reg = PhotoImage(file="data/img/regsmart.png")
@@ -481,14 +481,14 @@ class UserInterface:
         label.pack()
 
         welcome = open("data/info/welcome", 'r').read()
-        Label(about, text=welcome, bd=1, wraplength=500, bg='white').pack(fill=X)
+        Label(about, text=welcome, bd=1, bg='white').pack(fill=X)
         disclaimer = open("data/info/disclaimer", 'r').read()
         year = dt.datetime.now().year
-        Label(about, text="Copyright@"+str(year), bd=1, relief=SUNKEN, anchor=E, wraplength=200)\
-            .pack(side=BOTTOM, fill=X)
+        # Label(about, text="Copyright@"+str(year), bd=1, relief=SUNKEN, anchor=E, wraplength=200)\
+        #     .pack(side=BOTTOM, fill=X)
         Label(about, text=disclaimer, bd=1, bg="lightgrey", relief=SUNKEN, anchor=S).pack(side=BOTTOM, fill=X)
         frame.pack()
-        self.center_window(about, 750, 400)
+        # self.center_window(about, 750, 400)
         about.focus_force()
         self.rep_log("Getting Investigator information")
         if self.investigator == "RegSmart":
@@ -672,7 +672,7 @@ class UserInterface:
         self.sa_system_product_name = "Processing ..."
         self.os = {}
         self.directory = ""
-        self.master.title("RegSmart")
+        self.master.title("reganalyser")
 
     def load_session(self, dir):
         self.close_session()
@@ -686,7 +686,7 @@ class UserInterface:
                 self.display_message("error", "Invalid session selected. Please re-import the session.")
                 return
             self.session_name.set(self.full_session.split("_")[0])
-            self.master.title("RegSmart: [" + tmp[len(tmp) - 1] + "]")
+            self.master.title("reganalyser: [" + tmp[len(tmp) - 1] + "]")
             self.update_loading()
             logging.info("Loaded session [" + self.full_session + "]", extra={'investigator': self.investigator})
 
@@ -791,7 +791,7 @@ class UserInterface:
                         return
 
                 tmp = self.directory.split("/")
-                self.master.title("RegSmart: ["+tmp[len(tmp)-1]+"]")
+                self.master.title("reganalyser: ["+tmp[len(tmp)-1]+"]")
                 self.session = tmp[len(tmp)-1].split("_")[0]
                 self.full_session = tmp[len(tmp)-1]
                 self.rep_log("New session [" + tmp[len(tmp)-1] + "]")
@@ -900,7 +900,7 @@ class UserInterface:
                 tk.grid_rowconfigure(0, weight=1)
                 tk.grid_rowconfigure(1, weight=1)
                 self.center_window(tk, 500, 600)
-                tk.title("RegSmart: System Analysis")
+                tk.title("reganalyser: System Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
                 services, system = self.system_analysis_data()
@@ -1088,7 +1088,7 @@ class UserInterface:
                 tk.grid_rowconfigure(0, weight=1)
                 tk.grid_rowconfigure(1, weight=1)
                 self.center_window(tk, 500, 520)
-                tk.title("RegSmart: OS Analysis")
+                tk.title("reganalyser: OS Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
                 self.os, sid_list, users_paths_list, mapping_list, accounts = self.os_analysis_data()
@@ -1197,7 +1197,7 @@ class UserInterface:
             if self.directory != "" and self.software != "":
                 self.shim = Toplevel()
                 self.center_window(self.shim, 355, 250)
-                self.shim.title("RegSmart: Shim Cache")
+                self.shim.title("reganalyser: Shim Cache")
                 self.shim.iconbitmap("data/img/icon.ico")
 
                 r = 1
@@ -1426,7 +1426,7 @@ class UserInterface:
                 tk.grid_rowconfigure(0, weight=1)
                 tk.grid_rowconfigure(1, weight=1)
                 self.center_window(tk, 850, 520)
-                tk.title("RegSmart: Application Analysis")
+                tk.title("reganalyser: Application Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
                 start_applications, registered_applications, installed_applications, user_start_applications, \
@@ -1614,7 +1614,7 @@ class UserInterface:
                 tk.grid_rowconfigure(0, weight=1)
                 tk.grid_rowconfigure(1, weight=1)
                 self.center_window(tk, 800, 520)
-                tk.title("RegSmart: Application Analysis")
+                tk.title("reganalyser: Application Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
                 cards, intranet, wireless, matched = self.network_analysis_data()
@@ -1766,7 +1766,7 @@ class UserInterface:
                 tk.grid_rowconfigure(0, weight=1)
                 tk.grid_rowconfigure(1, weight=1)
                 self.center_window(tk, 950, 520)
-                tk.title("RegSmart: Application Analysis")
+                tk.title("reganalyser: Application Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
                 printer, usb = self.device_analysis_data()
@@ -1861,7 +1861,7 @@ class UserInterface:
                 self.has_report = "True"
                 self.report = Toplevel()
                 self.center_window(self.report, 400, 450)
-                self.report.title("RegSmart: Report")
+                self.report.title("reganalyser: Report")
                 self.report.iconbitmap("data/img/icon.ico")
 
                 r = 1
@@ -2017,7 +2017,7 @@ class UserInterface:
         try:
             self.settings = Toplevel()
             self.center_window(self.settings, 410, 200)
-            self.settings.title("RegSmart: Settings")
+            self.settings.title("reganalyser: Settings")
             self.settings.iconbitmap("data/img/icon.ico")
 
             r = 1
