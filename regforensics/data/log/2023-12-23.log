@@ -1,0 +1,108 @@
+2023-12-23 12:21:32,301 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:21:32,845 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\RegSmart.py", line 25, in <module>
+    root.iconbitmap("data/img/icon.ico")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data/img/icon.ico" not defined
+2023-12-23 12:22:35,445 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:22:35,511 - [INFO] --> Initiated about window
+2023-12-23 12:22:35,518 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\RegSmart.py", line 27, in <module>
+    b = UserInterface(root)
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\Interface.py", line 29, in __init__
+    self.intro()
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\Interface.py", line 476, in intro
+    about.iconbitmap("data/img/icon.ico")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data/img/icon.ico" not defined
+2023-12-23 12:22:42,739 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:22:42,809 - [INFO] --> Initiated about window
+2023-12-23 12:22:42,818 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\RegSmart.py", line 27, in <module>
+    b = UserInterface(root)
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\Interface.py", line 29, in __init__
+    self.intro()
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\Interface.py", line 476, in intro
+    about.iconbitmap("data/img/icon.ico")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data/img/icon.ico" not defined
+2023-12-23 12:23:13,130 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:23:13,207 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\RegSmart.py", line 25, in <module>
+    root.iconbitmap("data/img/icon.ico")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data/img/icon.ico" not defined
+2023-12-23 12:24:02,494 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:24:02,572 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\RegSmart.py", line 25, in <module>
+    root.iconbitmap(os.path.join("data", "img", "icon.ico"))
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data\img\icon.ico" not defined
+2023-12-23 12:26:53,654 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:26:53,751 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\RegSmart.py", line 25, in <module>
+    root.iconbitmap("data/img/application.png")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data/img/application.png" not defined
+2023-12-23 12:27:05,038 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:27:05,109 - [INFO] --> Initiated about window
+2023-12-23 12:27:05,117 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\RegSmart.py", line 27, in <module>
+    b = UserInterface(root)
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\Interface.py", line 29, in __init__
+    self.intro()
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\Interface.py", line 476, in intro
+    about.iconbitmap("data/img/icon.ico")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data/img/icon.ico" not defined
+2023-12-23 12:27:26,604 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:27:26,671 - [INFO] --> Initiated about window
+2023-12-23 12:27:26,678 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\RegSmart.py", line 27, in <module>
+    b = UserInterface(root)
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\Interface.py", line 29, in __init__
+    self.intro()
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\Interface.py", line 476, in intro
+    about.iconbitmap("data/img/icon.ico")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data/img/icon.ico" not defined
+2023-12-23 12:28:08,045 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:28:08,118 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\tempCodeRunnerFile.py", line 13, in <module>
+    root.iconbitmap("data/img/icon.ico")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data/img/icon.ico" not defined
+2023-12-23 12:28:20,128 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:28:20,206 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\RegSmart.py", line 13, in <module>
+    root.iconbitmap("data/img/icon.ico")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data/img/icon.ico" not defined
+2023-12-23 12:29:34,003 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 12:29:34,078 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "c:\Users\Devayani\Desktop\regforensics\RegSmart\RegSmart.py", line 12, in <module>
+    root.iconbitmap("data/img/icon.ico")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 2109, in wm_iconbitmap
+    return self.tk.call('wm', 'iconbitmap', self._w, bitmap)
+_tkinter.TclError: bitmap "data/img/icon.ico" not defined
