@@ -382,35 +382,48 @@ if success:
 
 
 def parse_log(time_log):
-    data_x1 = []
-    data_x2 = []
-    data_y = []
-    labels = []
+    # Initialize empty lists to store processed data
+    data_x1 = []  # Starting time values
+    data_x2 = []  # Ending time values
+    data_y = []   # Data point indices
+    labels = []   # Labels for the x-axis
 
+    # Extract the first and last timestamps from the time_log
     t1 = time_log[0]
     tn = time_log[-1]
+
+    # Calculate the time difference for the first timestamp (t1)
     t1d = datetime.timedelta(hours=t1.hour, minutes=t1.minute, seconds=t1.second)
 
+    # Initialize variables
     num = 0
     data = []
+
+    # Convert timestamps to minutes elapsed from the first timestamp
     for t in time_log:
         d = datetime.timedelta(hours=t.hour, minutes=t.minute, seconds=t.second) - t1d
         data.append(d.seconds / 60)
+
+    # Initialize a temporary variable with the first data point
     tmp = data[0]
+
+    # Process the data to create starting and ending time values
     for d in data:
-        data_x1.append(d)
-        data_x2.append(tmp)
+        data_x1.append(d)   # Add the starting time value
+        data_x2.append(tmp)  # Add the ending time value (from the previous data point)
         tmp = d
 
+    # Create indices for data points and labels for the x-axis
     for i in range(0, len(data_x1)):
-        data_y.append(i)
-        labels.append(i)
+        data_y.append(i)  # Add index value
+        labels.append(i)  # Add label value
 
-    # data_x1 = data_x1[:-1]
-    # data_x2 = data_x2[1:]
+    # Print the processed data for debugging purposes
     print(data_x1)
     print(data_x2)
-    return labels, data_y, data_x1,  data_x2
+
+    # Return the processed data
+    return labels, data_y, data_x1, data_x2
 
 
 def get_database(filename):
