@@ -58,24 +58,29 @@ class PageNumCanvas(canvas.Canvas):
 
 
 def standard_report(file, session, name,  business, db, log, time_log, data=None):
-
+# Function to generate a standard report
+    # Extract case information from the session
     case = session.split("@")[1]
     session = session.split("@")[0]
+   # Generate hash for verification before the report
     hash_before = Verification.get_hash(os.getcwd() + "\\data\\sessions\\" + session)
+  
+    # Create a SimpleDocTemplate for the PDF
     doc = SimpleDocTemplate(file, pagesize=letter,
                             rightMargin=72, leftMargin=72,
                             topMargin=72, bottomMargin=18)
+      # List to store the content of the PDF report
     Report = []
     logo = "data/img/regsmart.png"
 
     formatted_time = time.ctime()
     full_name = "Investigator: " + name
     address_parts = business
-
+   # Create an Image instance and add it to the report
     im = Image(logo, 4 * inch, 2 * inch)
     Report.append(im)
     Report.append(Spacer(5, 12))
-
+    # Set up styles for the report
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name='Justify', alignment=e.TA_JUSTIFY))
     styles.add(ParagraphStyle(name='Center', alignment=e.TA_CENTER))
