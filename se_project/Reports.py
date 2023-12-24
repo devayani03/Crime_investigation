@@ -282,24 +282,42 @@ def standard_report(file, session, name,  business, db, log, time_log, data=None
                                   Paragraph(str(z['LastArrivalDate']), styles["Normal"]),
                                   Paragraph(str(z['LastRemovalDate']), styles["Normal"])])
 
-                t = Table(up, colWidths=[5 * cm, 3 * cm, 3 * cm, 2.5 * cm, 2.5 * cm, 3 * cm])
-                t.setStyle(TableStyle([
-                    ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
-                    ('GRID', (0, 1), (-1, -1), 0.01 * inch, (0, 0, 0,)),
-                    ('FONT', (0, 0), (-1, 0), 'Helvetica-Bold')]))
+             # Create a table 't' with specified column widths and styling for USB-related information
+t = Table(up, colWidths=[5 * cm, 3 * cm, 3 * cm, 2.5 * cm, 2.5 * cm, 3 * cm])
+t.setStyle(TableStyle([
+    ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),  # Set background color for the header row
+    ('GRID', (0, 1), (-1, -1), 0.01 * inch, (0, 0, 0,)),  # Add grid lines to the table
+    ('FONT', (0, 0), (-1, 0), 'Helvetica-Bold')  # Set bold font for the header row
+]))
 
-                Report.append(Paragraph("<b>USB: </b>", styles["Left"]))
-                Report.append(Spacer(1, 12))
-                Report.append(t)
-            except Exception as ee:
-                print(ee)
-                success = False
+# Add a header indicating USB-related information to the report using the specified style ("Left")
+Report.append(Paragraph("<b>USB: </b>", styles["Left"]))
 
-    if success:
-        Report.append(Spacer(1, 40))
-        hash_after = Verification.get_hash(os.getcwd() + "\\data\\sessions\\" + session)
-        Report.append(Paragraph("<b>Hash Verifications: </b><br/>", styles["Left"]))
-        Report.append(Spacer(1, 12))
+# Add a vertical space of 12 units after the USB header for formatting
+Report.append(Spacer(1, 12))
+
+# Add the USB table 't' to the report
+Report.append(t)
+
+# Catch any exceptions that might occur during this section and set 'success' to False if an exception is caught
+except Exception as ee:
+    print(ee)
+    success = False
+
+
+# Check if previous sections of the report generation were successful
+if success:
+    # Add a vertical space of 40 units in the report for visual separation
+    Report.append(Spacer(1, 40))
+    
+    # Calculate the hash of the session directory after generating the report
+    hash_after = Verification.get_hash(os.getcwd() + "\\data\\sessions\\" + session)
+    
+    # Add a header indicating hash verifications with specified style ("Left")
+    Report.append(Paragraph("<b>Hash Verifications: </b><br/>", styles["Left"]))
+    
+    # Add a vertical space of 12 units after the hash verification header for formatting
+    Report.append(Spacer(1, 12))
 
         hashes = "<b>Session Before Report:</b> " + hash_before + "<br/>"
         hashes += "<b>Session After Report:&nbsp; </b> " + hash_after + "<br/>"
@@ -360,13 +378,7 @@ def standard_report(file, session, name,  business, db, log, time_log, data=None
     doc.build(Report, canvasmaker=PageNumCanvas)
 
 
-# def addPageNumber(canvas, doc):
-#     """
-#     Add the page number
-#     """
-#     page_num = canvas.getPageNumber()
-#     text = "Page #%s" % page_num
-#     canvas.drawRightString(200*mm, 20*mm, text)
+
 
 
 def parse_log(time_log):
@@ -402,39 +414,59 @@ def parse_log(time_log):
 
 
 def get_database(filename):
+    # Initialize an empty list to store data from the database file
     data = []
+
     try:
+        # Open the specified database file in read text mode
         with open("data/db/" + filename, "rt") as f:
+            # Iterate through each line in the file
             for line in f:
+                # Split the line into a list based on commas
                 tmp = line.split(',')
+                
+                # Iterate through the elements in the temporary list
                 for t in tmp:
+                    # Add the stripped and cleaned element to the data list
                     data.append(t.strip(' ').strip('\n'))
+    
     except Exception:
+        # Catch any exceptions that might occur during file processing
         pass
+
+    # Return the collected data from the database file
     return data
 
 
+
 def list_to_string(list_data, db=None, use=None):
+    # Convert a list to a formatted string for inclusion in the report
     list_str = ""
+
+    # Iterate over the elements of the list along with their indices
     for i, l in enumerate(list_data):
+        # Check if 'use' parameter is provided and has a truth value
         if use:
+            # Check if the 'get' method of 'use' is true (e.g., a boolean variable or function)
             if use.get():
-                if db:
-                    if str(l) not in db:
-                        list_str += str(i) + ": " + str(l) + "<br/>"
+                # Check if 'db' parameter is provided and the current element is not in the exclusion database
+                if db and str(l) not in db:
+                    list_str += str(i) + ": " + str(l) + "<br/>"
                 else:
                     list_str += str(i) + ": " + str(l) + "<br/>"
             else:
                 list_str += str(i) + ": " + str(l) + "<br/>"
         else:
+            # If 'use' is not provided, simply add the element with its index to the string
             list_str += str(i) + ": " + str(l) + "<br/>"
+    
     return list_str
 
 
 def coord(x, y, unit=1):
+    # Convert coordinates from user-defined units to standard units (e.g., A4 paper size)
     width, height = A4
     x, y = x * unit, height - y * unit
     return x, y
-
 
         
