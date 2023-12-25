@@ -25,7 +25,7 @@ class UserInterface:
         self.master = master
         self.report_log = ""
         self.timeline_log = []
-        self.investigator = "RegSmart"
+        self.investigator = "RegAnalyser"
         self.intro()
 
         # Declarations
@@ -162,7 +162,7 @@ class UserInterface:
                 b.image = image
                 b.pack(fill=BOTH, expand=True)
         except Exception:
-            logging.error('[RegSmart] An error occurred in (Session loading)', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('[RegAnalyser] An error occurred in (Session loading)', exc_info=True, extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred while Loading sessions.\nPlease try again.')
 
         tool_frame = Frame(self.frame, width=500, height=500)
@@ -202,9 +202,15 @@ class UserInterface:
         b.image = image
         b.grid(row=6, column=2, sticky="nsew")
 
+        # image = PhotoImage(file="data/img/cache.png", height=50, width=50)
+        # image.zoom(50, 50)
+        # b = Button(tool_frame, text="ShimCache Analysis", image=image, compound=TOP, command=self.shim_cache_gui)
+        # b.image = image
+        # b.grid(row=6, column=4, sticky="nsew")
+
         image = PhotoImage(file="data/img/cache.png", height=50, width=50)
         image.zoom(50, 50)
-        b = Button(tool_frame, text="ShimCache Analysis", image=image, compound=TOP, command=self.shim_cache_gui)
+        b = Button(tool_frame, text="VirusTotal Analysis", image=image, compound=TOP, command=self.virustotal_gui)
         b.image = image
         b.grid(row=6, column=4, sticky="nsew")
 
@@ -243,7 +249,7 @@ class UserInterface:
     def load_settings(self):
         try:
             i = 0
-            with open(os.getcwd() + "\\data\\config\\regsmart.conf", 'r') as file:
+            with open(os.getcwd() + "\\data\\config\\RegAnalyser.conf", 'r') as file:
                 for line in file:
                     if i < 7:
                         (key, val) = line.split()
@@ -262,14 +268,14 @@ class UserInterface:
 
         except Exception as ee:
             print(ee)
-            logging.error('[RegSmart] An error occurred in (load_settings)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+            logging.error('[RegAnalyser] An error occurred in (load_settings)', exc_info=True,
+                          extra={'investigator': 'RegAnalyser'})
             return "Error occurred"
 
     def update_settings(self, display=None):
         self.rep_log("Saved settings")
         try:
-            with open(os.getcwd() + "\\data\\config\\regsmart.conf", 'w') as file:
+            with open(os.getcwd() + "\\data\\config\\RegAnalyser.conf", 'w') as file:
                 final = ""
                 b = self.business_setting.strip("\n")
                 loc = ""
@@ -291,8 +297,8 @@ class UserInterface:
                 self.display_message("info", "Your settings have been updated successfully")
                 self.settings.destroy()
         except Exception as ee:
-            logging.error('[RegSmart] An error occurred in (Update settings)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+            logging.error('[RegAnalyser] An error occurred in (Update settings)', exc_info=True,
+                          extra={'investigator': 'RegAnalyser'})
 
     def hash_folder(self):
         try:
@@ -304,8 +310,8 @@ class UserInterface:
             self.hash_gui.clipboard_append("Filename: " + filename + "\nHash: " + hash)
             self.hash_gui.focus_force()
         except Exception as ee:
-            logging.error('[RegSmart] An error occurred in (hash folder)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+            logging.error('[RegAnalyser] An error occurred in (hash folder)', exc_info=True,
+                          extra={'investigator': 'RegAnalyser'})
 
     def hash_file(self):
         try:
@@ -316,15 +322,45 @@ class UserInterface:
             self.hash_gui.clipboard_clear()
             self.hash_gui.clipboard_append("Filename: " + filename + "\nHash: " + hash)
             self.hash_gui.focus_force()
+            print(hash)
         except Exception as ee:
-            logging.error('[RegSmart] An error occurred in (hash file)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+            logging.error('[RegAnalyser] An error occurred in (hash file)', exc_info=True,
+                          extra={'investigator': 'RegAnalyser'})
+
+    def virustotal_gui(self):
+        self.rep_log("Opened Hash Generator")
+        self.hash_gui = Toplevel()
+        self.center_window(self.hash_gui, 353, 150)
+        self.hash_gui.title("RegAnalyser: Hash Generator")
+        self.hash_gui.iconbitmap("data/img/icon.ico")
+
+        r = 1
+        Label(self.hash_gui, font="Arial 16 bold", fg="black", bg="orange",
+              text="Hash Generator") \
+            .grid(row=0, column=0, columnspan=2, sticky="nsew")
+        r += 1
+
+        image = PhotoImage(file="data/img/folder.png", height=50, width=50)
+        image.zoom(50, 50)
+        b = Button(self.hash_gui, text="Hash Folder", image=image, compound=TOP, command=self.hash_folder)
+        b.image = image
+        b.grid(row=1, column=0, pady=10, sticky="nsew")
+
+        image = PhotoImage(file="data/img/file.png", height=50, width=50)
+        image.zoom(50, 50)
+        b = Button(self.hash_gui, text="Hash File", image=image, compound=TOP, command=self.hash_file)
+        b.image = image
+        b.grid(row=1, column=1, pady=10, sticky="nsew")
+
+        Label(self.hash_gui, font="Arial 10 bold", fg="black", bg="grey",
+              text="Hash information is automatically copied to clipboard!") \
+            .grid(row=2, column=0, columnspan=2, sticky="nsew")
 
     def hash_checker(self):
         self.rep_log("Opened Hash Generator")
         self.hash_gui = Toplevel()
         self.center_window(self.hash_gui, 353, 150)
-        self.hash_gui.title("reganalyser: Hash Generator")
+        self.hash_gui.title("RegAnalyser: Hash Generator")
         self.hash_gui.iconbitmap("data/img/icon.ico")
 
         r = 1
@@ -368,7 +404,7 @@ class UserInterface:
             return '{0:.2f} TB'.format(B / TB)
 
     def get_config(self, filename):
-        filename = "data\\sessions\\" + filename + "\\regsmart.session"
+        filename = "data\\sessions\\" + filename + "\\RegAnalyser.session"
         try:
             with open(filename, 'r') as file:
                 return file.read()
@@ -427,18 +463,18 @@ class UserInterface:
 
     def display_message(self, types, message):
         if types == "info":
-            # thread.Thread(target=mb.showinfo, args=("RegSmart", message,)).start()
-            mb.showinfo("RegSmart", message)
+            # thread.Thread(target=mb.showinfo, args=("RegAnalyser", message,)).start()
+            mb.showinfo("RegAnalyser", message)
         if types == "error":
-            # thread.Thread(target=mb.showerror, args=("RegSmart", message,)).start()
-            mb.showerror("RegSmart", message)
+            # thread.Thread(target=mb.showerror, args=("RegAnalyser", message,)).start()
+            mb.showerror("RegAnalyser", message)
         if types == "warning":
-            # thread.Thread(target=mb.showwarning, args=("RegSmart", message,)).start()
-            mb.showwarning("RegSmart", message)
+            # thread.Thread(target=mb.showwarning, args=("RegAnalyser", message,)).start()
+            mb.showwarning("RegAnalyser", message)
         if types == "success":
-            # mb._show(title="RegSmart", message=message, _icon="info", type="ok")
+            # mb._show(title="RegAnalyser", message=message, _icon="info", type="ok")
             tmp = Toplevel()
-            tmp.title("RegSmart")
+            tmp.title("RegAnalyser")
             tmp.iconbitmap("data/img/icon.ico")
             Frame(tmp, width=200, height=8).pack()
             photo = PhotoImage(file="data/img/regticksmall.png", height=100, width=100)
@@ -451,7 +487,7 @@ class UserInterface:
             tmp.focus_force()
 
     def get_answer(self, message):
-        return mb.askquestion("RegSmart",message)
+        return mb.askquestion("RegAnalyser",message)
 
     def stop(self):
         self.stop_processing = True
@@ -472,10 +508,10 @@ class UserInterface:
         logging.info("Initiated about window", extra={'investigator': self.investigator})
 
         about = Toplevel(bg='white')
-        about.title("reganalyser")
+        about.title("RegAnalyser")
         about.iconbitmap("data/img/icon.ico")
         frame = Frame(about, width=400, height=100, bg='white')
-        reg = PhotoImage(file="data/img/regsmart.png")
+        reg = PhotoImage(file="data/img/RegAnalyser.png")
         label = Label(about, image=reg)
         label.image = reg
         label.pack()
@@ -491,25 +527,25 @@ class UserInterface:
         # self.center_window(about, 750, 400)
         about.focus_force()
         self.rep_log("Getting Investigator information")
-        if self.investigator == "RegSmart":
-            self.investigator = sd.askstring("RegSmart", "Investigators Name:")
+        if self.investigator == "RegAnalyser":
+            self.investigator = sd.askstring("RegAnalyser", "Investigators Name:")
             if not self.investigator or self.investigator == "" or self.investigator == " ":
-                self.investigator = "RegSmart"
+                self.investigator = "RegAnalyser"
                 self.rep_log("User failed to enter their name on the first try.")
                 self.display_message("warning", "Please enter your name")
-                self.investigator = sd.askstring("RegSmart", "Investigators Name:")
+                self.investigator = sd.askstring("RegAnalyser", "Investigators Name:")
                 if not self.investigator or self.investigator == "" or self.investigator == " ":
-                    logging.info('Failed to get investigator name exiting ...', extra={'investigator': 'RegSmart'})
-                    mb.showerror("RegSmart", "Failed to get Investigator Name.\nExiting ...")
+                    logging.info('Failed to get investigator name exiting ...', extra={'investigator': 'RegAnalyser'})
+                    mb.showerror("RegAnalyser", "Failed to get Investigator Name.\nExiting ...")
                     exit(0)
-            id = sd.askstring("RegSmart", "Investigators ID: ")
+            id = sd.askstring("RegAnalyser", "Investigators ID: ")
             if not id or id == "" or id == " ":
                 self.rep_log("User failed to enter their ID on the first try.")
                 self.display_message("warning", "Please enter your ID")
-                id = sd.askstring("RegSmart", "Investigators ID:")
+                id = sd.askstring("RegAnalyser", "Investigators ID:")
                 if not id or id == "" or id == " ":
-                    logging.info('Failed to get investigator id exiting ...', extra={'investigator': 'RegSmart'})
-                    mb.showerror("RegSmart", "Failed to get Investigator ID.\nExiting ...")
+                    logging.info('Failed to get investigator id exiting ...', extra={'investigator': 'RegAnalyser'})
+                    mb.showerror("RegAnalyser", "Failed to get Investigator ID.\nExiting ...")
                     exit(0)
 
             self.rep_log("Investigator entered name: " + self.investigator)
@@ -527,7 +563,7 @@ class UserInterface:
     def confirm_quit(self):
         tmp = self.get_answer("Do you want to quit?")
         if tmp == "yes":
-            logging.info("Exiting RegSmart ...", extra={'investigator': self.investigator})
+            logging.info("Exiting RegAnalyser ...", extra={'investigator': self.investigator})
             self.master.destroy()
             exit(0)
 
@@ -553,7 +589,7 @@ class UserInterface:
             else:
                 self.set_status("Dumps are not authentic")
                 self.display_message("error", "The integrity of the dumps is not valid.")
-                self.display_message("error", "RegSmart cannot process due to difference in original file"
+                self.display_message("error", "RegAnalyser cannot process due to difference in original file"
                                               " and forensic copy.")
                 self.display_message("info", "Please get new dumps and make sure that the dumps were"
                                              " successfully acquired.")
@@ -603,7 +639,7 @@ class UserInterface:
                         self.sa_processor = v.value()
             except Exception as ee:
                 logging.error('An error occurred in (parsing registry)', exc_info=True,
-                              extra={'investigator': 'RegSmart'})
+                              extra={'investigator': 'RegAnalyser'})
                 self.display_message("error", "Failed to Parse registry dumps.\nSession is now closing.")
                 self.close_session()
         self.set_status("Ready")
@@ -672,7 +708,7 @@ class UserInterface:
         self.sa_system_product_name = "Processing ..."
         self.os = {}
         self.directory = ""
-        self.master.title("reganalyser")
+        self.master.title("RegAnalyser")
 
     def load_session(self, dir):
         self.close_session()
@@ -686,7 +722,7 @@ class UserInterface:
                 self.display_message("error", "Invalid session selected. Please re-import the session.")
                 return
             self.session_name.set(self.full_session.split("_")[0])
-            self.master.title("reganalyser: [" + tmp[len(tmp) - 1] + "]")
+            self.master.title("RegAnalyser: [" + tmp[len(tmp) - 1] + "]")
             self.update_loading()
             logging.info("Loaded session [" + self.full_session + "]", extra={'investigator': self.investigator})
 
@@ -731,8 +767,8 @@ class UserInterface:
                 b.image = image
                 b.pack(fill=BOTH, expand=True)
         except Exception:
-            logging.error('[RegSmart] An error occurred in (Session loading)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+            logging.error('[RegAnalyser] An error occurred in (Session loading)', exc_info=True,
+                          extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred while Loading sessions.\nPlease try again.')
 
     def copy_dumps(self, src, dst, symlinks=False, ignore=None):
@@ -746,7 +782,7 @@ class UserInterface:
 
     def create_config(self, case, dest, folder_name):
         folder_name = folder_name.split("_")
-        file = open(dest+"\\regsmart.session", 'w')
+        file = open(dest+"\\RegAnalyser.session", 'w')
         file.write("  Name: " + folder_name[0] + "\n")
         file.write("  Machine: " + folder_name[1] + "\n")
         file.write("  Date: " + folder_name[2] + "\n")
@@ -782,16 +818,16 @@ class UserInterface:
         self.directory = fd.askdirectory()
         if self.directory != "":
             if Verification.is_valid_regacquire(self.directory):
-                case = sd.askstring("RegSmart", "Enter Case Number:")
+                case = sd.askstring("RegAnalyser", "Enter Case Number:")
                 if not case or case == "" or case == " ":
                     self.display_message("warning", "Please enter case number")
-                    case = sd.askstring("RegSmart", "Enter Case Number:")
+                    case = sd.askstring("RegAnalyser", "Enter Case Number:")
                     if not case or case == "" or case == " ":
                         self.display_message("error", "Failed to get case number, session will not be imported.")
                         return
 
                 tmp = self.directory.split("/")
-                self.master.title("reganalyser: ["+tmp[len(tmp)-1]+"]")
+                self.master.title("RegAnalyser: ["+tmp[len(tmp)-1]+"]")
                 self.session = tmp[len(tmp)-1].split("_")[0]
                 self.full_session = tmp[len(tmp)-1]
                 self.rep_log("New session [" + tmp[len(tmp)-1] + "]")
@@ -833,7 +869,7 @@ class UserInterface:
                     system["windir"] = v.value()
         except Exception:
             logging.error('An error occurred in (system_analysis - WinDir)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.system.open("ControlSet00" + self.control_set + "\\Control\\Session Manager\\Environment")
@@ -846,7 +882,7 @@ class UserInterface:
                     system["path"] = v.value()
         except Exception:
             logging.error('An error occurred in (system_analysis - Processor)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.system.open("ControlSet00" + self.control_set + "\\Control\\ComputerName\\ComputerName")
@@ -855,7 +891,7 @@ class UserInterface:
                     system["computer_name"] = v.value()
         except Exception:
             logging.error('An error occurred in (system_analysis - Computer Name)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.system.open("ControlSet00" + self.control_set + "\\Control\\Windows")
@@ -864,7 +900,7 @@ class UserInterface:
                     system["shutdown"] = Parse.hex_windows_to_date(v.value().hex())
         except Exception:
             logging.error('An error occurred in (system_analysis - Shutdown time)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.software.open("Microsoft\\Windows NT\\CurrentVersion")
@@ -875,7 +911,7 @@ class UserInterface:
                     system["release_id"] = v.value()
         except Exception:
             logging.error('An error occurred in (system_analysis - Product info)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.system.open("ControlSet00" + self.control_set + "\\Services")
@@ -883,7 +919,7 @@ class UserInterface:
                 services.append(v.name())
         except Exception:
             logging.error('An error occurred in (system_analysis - Services)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         return services, system
 
@@ -900,7 +936,7 @@ class UserInterface:
                 tk.grid_rowconfigure(0, weight=1)
                 tk.grid_rowconfigure(1, weight=1)
                 self.center_window(tk, 500, 600)
-                tk.title("reganalyser: System Analysis")
+                tk.title("RegAnalyser: System Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
                 services, system = self.system_analysis_data()
@@ -987,7 +1023,7 @@ class UserInterface:
                 lb['xscrollcommand'] = scrollbx.set
 
                 # if self.sa_system_product_name == "Processing ...":
-                #     self.system_analysis_regsmart()
+                #     self.system_analysis_RegAnalyser()
 
                 # v['text'] = self.sa_bios_vendor
                 # vv['text'] = self.sa_bios_version
@@ -1000,7 +1036,7 @@ class UserInterface:
                 self.display_message('error', 'Please click on a session to load!')
 
         except Exception:
-            logging.error('An error occurred in (system_analysis)', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('An error occurred in (system_analysis)', exc_info=True, extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred while trying to extract information.\nPlease try again.')
 
     def os_analysis_data(self):
@@ -1030,7 +1066,7 @@ class UserInterface:
                     self.os['CurrentBuild'] = v.value()
         except Exception:
             logging.error('An error occurred in (OS_analysis - Current Version)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.system.open("ControlSet00" + self.control_set + "\\Control\\Session Manager\\Environment")
@@ -1039,7 +1075,7 @@ class UserInterface:
                     self.sa_windir = v.value()
         except Exception:
             logging.error('An error occurred in (OS_analysis - WinDir)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         sid_list = []
         users_paths_list = []
@@ -1051,7 +1087,7 @@ class UserInterface:
             for v in key.subkeys():
                 sid_list.append(v.name())
         except Exception:
-            logging.error('An error occurred in (OS_analysis - SID)', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('An error occurred in (OS_analysis - SID)', exc_info=True, extra={'investigator': 'RegAnalyser'})
 
         try:
             for sid in sid_list:
@@ -1063,7 +1099,7 @@ class UserInterface:
                         users_paths_list.append(v.value())
         except Exception:
             logging.error('An error occurred in (OS_analysis - Profile)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.sam.open("SAM\\Domains\\Account\\Users\\Names")
@@ -1071,7 +1107,7 @@ class UserInterface:
                 accounts.append(v.name())
         except Exception:
             logging.error('An error occurred in (OS_analysis - User accounts)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         return self.os, sid_list, users_paths_list, mapping_list, accounts
 
@@ -1088,7 +1124,7 @@ class UserInterface:
                 tk.grid_rowconfigure(0, weight=1)
                 tk.grid_rowconfigure(1, weight=1)
                 self.center_window(tk, 500, 520)
-                tk.title("reganalyser: OS Analysis")
+                tk.title("RegAnalyser: OS Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
                 self.os, sid_list, users_paths_list, mapping_list, accounts = self.os_analysis_data()
@@ -1188,7 +1224,7 @@ class UserInterface:
                 self.rep_log("No session loaded")
                 self.display_message('error', 'Please click on a session to load!')
         except Exception:
-            logging.error('An error occurred in (OS_analysis)', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('An error occurred in (OS_analysis)', exc_info=True, extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred while processing\n Please try again.')
 
     def shim_cache_gui(self):
@@ -1197,7 +1233,7 @@ class UserInterface:
             if self.directory != "" and self.software != "":
                 self.shim = Toplevel()
                 self.center_window(self.shim, 355, 250)
-                self.shim.title("reganalyser: Shim Cache")
+                self.shim.title("RegAnalyser: Shim Cache")
                 self.shim.iconbitmap("data/img/icon.ico")
 
                 r = 1
@@ -1248,7 +1284,7 @@ class UserInterface:
 
         except Exception as e:
             print(e)
-            logging.error('An error occurred in (Shim Cache)', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('An error occurred in (Shim Cache)', exc_info=True, extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred while processing\n Please try again.')
 
     def process_shim_cache(self):
@@ -1321,7 +1357,7 @@ class UserInterface:
 
         except Exception as ee:
             print(ee)
-            logging.error('An error occurred in (regview)', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('An error occurred in (regview)', exc_info=True, extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred while opening regview\n Please try again.')
 
     def save_shim_cache(self, hive, out, name):
@@ -1338,7 +1374,7 @@ class UserInterface:
         except IOError as ee:
             print(ee)
             # self.display_message("error", "Error finding and saving Shim cache for " + hive)
-            logging.error('An error occurred in (shim cache)', exc_info=True,  extra={'investigator': 'RegSmart'})
+            logging.error('An error occurred in (shim cache)', exc_info=True,  extra={'investigator': 'RegAnalyser'})
 
     def application_analysis_data(self):
         start_applications = []
@@ -1354,7 +1390,7 @@ class UserInterface:
                 start_applications.append(v.name())
         except Exception:
             logging.error('An error occurred in (application_analysis - Run)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.software.open("RegisteredApplications")
@@ -1362,7 +1398,7 @@ class UserInterface:
                 registered_applications.append(v.name())
         except Exception:
             logging.error('An error occurred in (application_analysis - Registered)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.software.open("Microsoft\\Windows\\CurrentVersion\\Uninstall")
@@ -1370,7 +1406,7 @@ class UserInterface:
                 installed_applications.append(v.name())
         except Exception:
             logging.error('An error occurred in (application_analysis - Installed)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         # ===
         try:
@@ -1379,7 +1415,7 @@ class UserInterface:
                 user_start_applications.append(v.name())
         except Exception:
             logging.error('An error occurred in (application_analysis - User Run)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.ntuser.open("Software\\RegisteredApplications")
@@ -1387,7 +1423,7 @@ class UserInterface:
                 user_registered_applications.append(v.name())
         except Exception:
             logging.error('An error occurred in (application_analysis - User Registerd)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.ntuser.open("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall")
@@ -1395,7 +1431,7 @@ class UserInterface:
                 user_installed_applications.append(v.name())
         except Exception:
             logging.error('An error occurred in (application_analysis - User Installed)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             if "64" in self.sa_processor:
@@ -1408,7 +1444,7 @@ class UserInterface:
                     start_applications.append(v.name())
         except Exception:
             logging.error('An error occurred in (application_analysis - 64 Run and Installed)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         return start_applications, registered_applications, installed_applications, user_start_applications, \
                user_registered_applications, user_installed_applications
@@ -1426,7 +1462,7 @@ class UserInterface:
                 tk.grid_rowconfigure(0, weight=1)
                 tk.grid_rowconfigure(1, weight=1)
                 self.center_window(tk, 850, 520)
-                tk.title("reganalyser: Application Analysis")
+                tk.title("RegAnalyser: Application Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
                 start_applications, registered_applications, installed_applications, user_start_applications, \
@@ -1547,7 +1583,7 @@ class UserInterface:
                 self.rep_log("No session loaded")
                 self.display_message('error', 'Please click on a session to load!')
         except Exception:
-            logging.error('An error occurred in (OS_analysis)', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('An error occurred in (OS_analysis)', exc_info=True, extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred while processing\n Please try again.')
 
     def network_analysis_data(self):
@@ -1564,7 +1600,7 @@ class UserInterface:
                         cards.append(n.value())
         except Exception:
             logging.error('An error occurred in (network_analysis - Cards)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.software.open("Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\Nla\\Cache\\Intranet")
@@ -1572,7 +1608,7 @@ class UserInterface:
                 intranet.append(v.name())
         except Exception:
             logging.error('An error occurred in (network_analysis - Intranets)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.software.open("Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\Nla\\Wireless")
@@ -1580,7 +1616,7 @@ class UserInterface:
                 wireless.append(v.name())
         except Exception:
             logging.error('An error occurred in (network_analysis - Wireless)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.software.open("Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\Profiles")
@@ -1597,7 +1633,7 @@ class UserInterface:
                 matched.append(tmp)
         except Exception:
             logging.error('An error occurred in (network_analysis - Extracting Wireless profiles)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         return cards, intranet, wireless, matched
 
@@ -1614,7 +1650,7 @@ class UserInterface:
                 tk.grid_rowconfigure(0, weight=1)
                 tk.grid_rowconfigure(1, weight=1)
                 self.center_window(tk, 800, 520)
-                tk.title("reganalyser: Application Analysis")
+                tk.title("RegAnalyser: Application Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
                 cards, intranet, wireless, matched = self.network_analysis_data()
@@ -1695,7 +1731,7 @@ class UserInterface:
                 self.rep_log("No session loaded")
                 self.display_message('error', 'Please click on a session to load!')
         except Exception:
-            logging.error('An error occurred in (OS_analysis)', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('An error occurred in (OS_analysis)', exc_info=True, extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred while processing\n Please try again.')
 
     def device_analysis_data(self):
@@ -1714,7 +1750,7 @@ class UserInterface:
                                     printer.append(d.name())
         except Exception:
             logging.error('An error occurred in (device_analysis - Print Drivers)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
 
         try:
             key = self.system.open("ControlSet00" + self.control_set + "\\Enum\\USBSTOR")
@@ -1751,7 +1787,7 @@ class UserInterface:
                 usb.append(tmp)
         except Exception:
             logging.error('An error occurred in (device_analysis - USB)', exc_info=True,
-                          extra={'investigator': 'RegSmart'})
+                          extra={'investigator': 'RegAnalyser'})
         return printer, usb
 
     def device_analysis(self):
@@ -1766,7 +1802,7 @@ class UserInterface:
                 tk.grid_rowconfigure(0, weight=1)
                 tk.grid_rowconfigure(1, weight=1)
                 self.center_window(tk, 950, 520)
-                tk.title("reganalyser: Application Analysis")
+                tk.title("RegAnalyser: Application Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
                 printer, usb = self.device_analysis_data()
@@ -1834,7 +1870,7 @@ class UserInterface:
                 self.rep_log("No session loaded")
                 self.display_message('error', 'Please click on a session to load!')
         except Exception:
-            logging.error('An error occurred in (OS_analysis)', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('An error occurred in (OS_analysis)', exc_info=True, extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred while processing\n Please try again.')
 
     def key_to_string(self, key):
@@ -1861,7 +1897,7 @@ class UserInterface:
                 self.has_report = "True"
                 self.report = Toplevel()
                 self.center_window(self.report, 400, 450)
-                self.report.title("reganalyser: Report")
+                self.report.title("RegAnalyser: Report")
                 self.report.iconbitmap("data/img/icon.ico")
 
                 r = 1
@@ -1931,7 +1967,7 @@ class UserInterface:
             print(ee)
             self.display_message("error", "Failed to create report.\nThis could be due to several reasons, "
                                           "PDF file is already opened or incorrect options choosed.")
-            logging.error('Report failed to be created', extra={'investigator': 'RegSmart'})
+            logging.error('Report failed to be created', extra={'investigator': 'RegAnalyser'})
 
     def generate_report(self):
         try:
@@ -2010,14 +2046,14 @@ class UserInterface:
             print(ee)
             self.display_message("error", "Failed to create report.\nThis could be due to several reasons, "
                                           "PDF file is already opened or incorrect options choosed.")
-            logging.error('Report failed to be created', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('Report failed to be created', exc_info=True, extra={'investigator': 'RegAnalyser'})
 
     def settings_gui(self):
         self.rep_log("Opened settings menu")
         try:
             self.settings = Toplevel()
             self.center_window(self.settings, 410, 200)
-            self.settings.title("reganalyser: Settings")
+            self.settings.title("RegAnalyser: Settings")
             self.settings.iconbitmap("data/img/icon.ico")
 
             r = 1
@@ -2076,7 +2112,7 @@ class UserInterface:
 
         except Exception as ee:
             print(ee)
-            logging.error('An error occurred in (Settings)', exc_info=True, extra={'investigator': 'RegSmart'})
+            logging.error('An error occurred in (Settings)', exc_info=True, extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred trying to save your settings.\n Please try again.')
 
     def rep_log(self, msg):

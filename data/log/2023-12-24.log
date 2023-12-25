@@ -1,0 +1,8 @@
+2023-12-24 00:01:28,333 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-24 00:01:28,413 - [INFO] --> Initiated about window
+2023-12-24 00:01:43,435 - [ERROR] --> [RegAnalyser] An error occurred in (load_settings)
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 246, in load_settings
+    with open(os.getcwd() + "\\data\\config\\RegAnalyser.conf", 'r') as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Narayani\\OneDrive\\Documents\\RegEditor\\RegSmart\\data\\config\\RegAnalyser.conf'
+2023-12-24 00:01:54,041 - [INFO] --> Exiting RegAnalyser ...

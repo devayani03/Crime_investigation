@@ -1,0 +1,50 @@
+2023-12-25 12:42:52,678 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-25 12:42:52,799 - [INFO] --> Initiated about window
+2023-12-25 12:43:01,611 - [ERROR] --> [RegAnalyser] An error occurred in (load_settings)
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 246, in load_settings
+    with open(os.getcwd() + "\\data\\config\\RegAnalyser.conf", 'r') as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Narayani\\OneDrive\\Documents\\RegEditor\\RegSmart\\data\\config\\RegAnalyser.conf'
+2023-12-25 12:43:06,001 - [INFO] --> Closed session []
+2023-12-25 12:43:31,681 - [INFO] --> Closed session [Narayani_DESKTOP-1GI7Q43_23-12-2023--]
+2023-12-25 12:43:43,091 - [INFO] --> Exiting RegAnalyser ...
+2023-12-25 13:00:50,325 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-25 13:00:50,423 - [INFO] --> Initiated about window
+2023-12-25 13:00:57,910 - [ERROR] --> [RegAnalyser] An error occurred in (load_settings)
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 246, in load_settings
+    with open(os.getcwd() + "\\data\\config\\RegAnalyser.conf", 'r') as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Narayani\\OneDrive\\Documents\\RegEditor\\RegSmart\\data\\config\\RegAnalyser.conf'
+2023-12-25 13:10:27,292 - [INFO] --> Exiting RegAnalyser ...
+2023-12-25 13:18:14,970 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-25 13:18:15,056 - [INFO] --> Initiated about window
+2023-12-25 13:18:20,334 - [ERROR] --> [RegAnalyser] An error occurred in (load_settings)
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 246, in load_settings
+    with open(os.getcwd() + "\\data\\config\\RegAnalyser.conf", 'r') as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Narayani\\OneDrive\\Documents\\RegEditor\\RegSmart\\data\\config\\RegAnalyser.conf'
+2023-12-25 13:18:27,943 - [INFO] --> Exiting RegAnalyser ...
+2023-12-25 13:55:25,360 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-25 13:55:25,442 - [INFO] --> Initiated about window
+2023-12-25 13:55:31,497 - [ERROR] --> [RegAnalyser] An error occurred in (load_settings)
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 252, in load_settings
+    with open(os.getcwd() + "\\data\\config\\RegAnalyser.conf", 'r') as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Narayani\\OneDrive\\Documents\\RegEditor\\RegSmart\\data\\config\\RegAnalyser.conf'
+2023-12-25 13:56:15,931 - [INFO] --> Exiting RegAnalyser ...
+2023-12-25 13:57:00,100 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-25 13:57:00,165 - [INFO] --> Initiated about window
+2023-12-25 13:57:03,885 - [ERROR] --> [RegAnalyser] An error occurred in (load_settings)
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 252, in load_settings
+    with open(os.getcwd() + "\\data\\config\\RegAnalyser.conf", 'r') as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Narayani\\OneDrive\\Documents\\RegEditor\\RegSmart\\data\\config\\RegAnalyser.conf'
+2023-12-25 13:57:53,773 - [INFO] --> Exiting RegAnalyser ...
+2023-12-25 13:57:58,764 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-25 13:57:58,826 - [INFO] --> Initiated about window
+2023-12-25 13:58:05,623 - [ERROR] --> [RegAnalyser] An error occurred in (load_settings)
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 252, in load_settings
+    with open(os.getcwd() + "\\data\\config\\RegAnalyser.conf", 'r') as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Narayani\\OneDrive\\Documents\\RegEditor\\RegSmart\\data\\config\\RegAnalyser.conf'
+2023-12-25 13:58:20,581 - [INFO] --> Exiting RegAnalyser ...

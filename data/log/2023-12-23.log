@@ -73,3 +73,71 @@ FileNotFoundError: [Errno 2] No such file or directory: ''
 2023-12-23 23:40:04,648 - [INFO] --> [RegSmart] RegSmart Started
 2023-12-23 23:40:04,729 - [INFO] --> Initiated about window
 2023-12-23 23:40:11,244 - [INFO] --> Failed to get investigator name exiting ...
+2023-12-23 23:49:50,608 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 23:49:50,713 - [INFO] --> Initiated about window
+2023-12-23 23:49:57,015 - [INFO] --> Failed to get investigator name exiting ...
+2023-12-23 23:50:00,618 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 23:50:00,691 - [INFO] --> Initiated about window
+2023-12-23 23:50:17,545 - [INFO] --> Exiting RegSmart ...
+2023-12-23 23:51:43,163 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 23:51:43,225 - [INFO] --> Initiated about window
+2023-12-23 23:51:43,234 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\RegSmart.py", line 15, in <module>
+    b = UserInterface(root)
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 29, in __init__
+    self.intro()
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 478, in intro
+    reg = PhotoImage(file="data/img/RegAnalyser.png")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\tkinter\__init__.py", line 4103, in __init__
+    Image.__init__(self, 'photo', name, cnf, master, **kw)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\tkinter\__init__.py", line 4048, in __init__
+    self.tk.call(('image', 'create', imgtype, name,) + options)
+_tkinter.TclError: couldn't open "data/img/RegAnalyser.png": no such file or directory
+2023-12-23 23:51:49,884 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 23:51:49,948 - [INFO] --> Initiated about window
+2023-12-23 23:51:49,956 - [ERROR] --> [RegSmart] An error occurred
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\RegSmart.py", line 15, in <module>
+    b = UserInterface(root)
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 29, in __init__
+    self.intro()
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 478, in intro
+    reg = PhotoImage(file="data/img/RegAnalyser.png")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\tkinter\__init__.py", line 4103, in __init__
+    Image.__init__(self, 'photo', name, cnf, master, **kw)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\tkinter\__init__.py", line 4048, in __init__
+    self.tk.call(('image', 'create', imgtype, name,) + options)
+_tkinter.TclError: couldn't open "data/img/RegAnalyser.png": no such file or directory
+2023-12-23 23:52:02,929 - [INFO] --> [RegSmart] RegSmart Started
+2023-12-23 23:52:03,011 - [INFO] --> Initiated about window
+2023-12-23 23:52:27,460 - [INFO] --> Exiting RegSmart ...
+2023-12-23 23:54:18,145 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-23 23:54:18,216 - [INFO] --> Initiated about window
+2023-12-23 23:54:18,224 - [ERROR] --> [RegAnalyser] An error occurred
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\RegSmart.py", line 15, in <module>
+    b = UserInterface(root)
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 29, in __init__
+    self.intro()
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 478, in intro
+    reg = PhotoImage(file="data/img/RegAnalyser.png")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\tkinter\__init__.py", line 4103, in __init__
+    Image.__init__(self, 'photo', name, cnf, master, **kw)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\tkinter\__init__.py", line 4048, in __init__
+    self.tk.call(('image', 'create', imgtype, name,) + options)
+_tkinter.TclError: couldn't open "data/img/RegAnalyser.png": no such file or directory
+2023-12-23 23:54:58,173 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-23 23:54:58,236 - [INFO] --> Initiated about window
+2023-12-23 23:55:09,004 - [ERROR] --> [RegAnalyser] An error occurred in (load_settings)
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Documents\RegEditor\RegSmart\Interface.py", line 246, in load_settings
+    with open(os.getcwd() + "\\data\\config\\RegAnalyser.conf", 'r') as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Narayani\\OneDrive\\Documents\\RegEditor\\RegSmart\\data\\config\\RegAnalyser.conf'
+2023-12-23 23:55:16,484 - [INFO] --> Exiting RegAnalyser ...
+2023-12-23 23:56:46,553 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-23 23:56:46,684 - [INFO] --> Initiated about window
+2023-12-23 23:56:53,346 - [INFO] --> Failed to get investigator name exiting ...
+2023-12-23 23:58:44,610 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-23 23:58:44,673 - [INFO] --> Initiated about window
+2023-12-23 23:58:49,778 - [INFO] --> Failed to get investigator name exiting ...
