@@ -1,0 +1,7 @@
+2023-12-26 01:16:36,752 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-26 01:16:36,876 - [INFO] --> Initiated about window
+2023-12-26 01:16:49,786 - [INFO] --> Closed session []
+2023-12-26 01:17:13,360 - [INFO] --> Loaded session [Narayani_DESKTOP-1GI7Q43_25-12-2023--]
+2023-12-26 01:17:30,150 - [INFO] --> Network Analysis on [Narayani_DESKTOP-1GI7Q43_25-12-2023--]
+2023-12-26 01:17:33,302 - [INFO] --> Application Analysis on [Narayani_DESKTOP-1GI7Q43_25-12-2023--]
+2023-12-26 01:17:37,427 - [INFO] --> Exiting RegAnalyser ...

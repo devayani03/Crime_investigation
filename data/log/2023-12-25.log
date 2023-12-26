@@ -1771,3 +1771,35 @@ _tkinter.TclError: couldn't recognize data in image file "data/img/os.png"
 2023-12-25 19:39:23,316 - [INFO] --> OS Analysis on [Narayani_DESKTOP-1GI7Q43_25-12-2023--]
 2023-12-25 19:39:28,580 - [INFO] --> Application Analysis on [Narayani_DESKTOP-1GI7Q43_25-12-2023--]
 2023-12-25 19:41:43,002 - [INFO] --> Exiting RegAnalyser ...
+2023-12-25 20:28:20,673 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-25 20:28:20,792 - [INFO] --> Initiated about window
+2023-12-25 20:28:59,353 - [DEBUG] --> Starting new HTTPS connection (1): www.virustotal.com:443
+2023-12-25 20:29:01,194 - [DEBUG] --> https://www.virustotal.com:443 "POST /vtapi/v2/file/scan HTTP/1.1" 200 636
+2023-12-25 20:29:01,201 - [DEBUG] --> Starting new HTTPS connection (1): www.virustotal.com:443
+2023-12-25 20:29:02,103 - [DEBUG] --> https://www.virustotal.com:443 "GET /vtapi/v2/file/report?apikey=788912950ab73ac48ec575a041351e944cda861eaf1c90f2cf38a2aad5cf2b38&resource=aca12bf47b5cd47906ab27fe1eb657abffda0153eea267a8868f6e80495c8cab HTTP/1.1" 200 235
+2023-12-25 20:29:27,109 - [DEBUG] --> Starting new HTTPS connection (1): www.virustotal.com:443
+2023-12-25 20:29:28,004 - [DEBUG] --> https://www.virustotal.com:443 "GET /vtapi/v2/file/report?apikey=788912950ab73ac48ec575a041351e944cda861eaf1c90f2cf38a2aad5cf2b38&resource=aca12bf47b5cd47906ab27fe1eb657abffda0153eea267a8868f6e80495c8cab HTTP/1.1" 200 235
+2023-12-25 20:29:53,026 - [DEBUG] --> Starting new HTTPS connection (1): www.virustotal.com:443
+2023-12-25 20:29:54,047 - [DEBUG] --> https://www.virustotal.com:443 "GET /vtapi/v2/file/report?apikey=788912950ab73ac48ec575a041351e944cda861eaf1c90f2cf38a2aad5cf2b38&resource=aca12bf47b5cd47906ab27fe1eb657abffda0153eea267a8868f6e80495c8cab HTTP/1.1" 200 6366
+2023-12-25 20:30:23,193 - [INFO] --> Exiting RegAnalyser ...
+2023-12-25 22:21:14,846 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-25 22:21:14,985 - [INFO] --> Initiated about window
+2023-12-25 22:21:22,229 - [ERROR] --> [RegAnalyser] An error occurred
+Traceback (most recent call last):
+  File "C:\Users\Narayani\OneDrive\Desktop\RegAnalyser\RegAnalyser.py", line 15, in <module>
+    b = UserInterface(root)
+  File "C:\Users\Narayani\OneDrive\Desktop\RegAnalyser\Interface.py", line 145, in __init__
+    self.main_menu()
+  File "C:\Users\Narayani\OneDrive\Desktop\RegAnalyser\Interface.py", line 502, in main_menu
+    editmenu.add_command(label="Hash Generator", command=self.hash_checker)
+AttributeError: 'UserInterface' object has no attribute 'hash_checker'
+2023-12-25 22:21:34,370 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-25 22:21:34,488 - [INFO] --> Initiated about window
+2023-12-25 22:21:46,498 - [INFO] --> Closed session []
+2023-12-25 22:22:33,690 - [INFO] --> Loaded session [Narayani_DESKTOP-1GI7Q43_25-12-2023--]
+2023-12-25 22:23:16,912 - [INFO] --> Exiting RegAnalyser ...
+2023-12-25 23:23:45,664 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-25 23:23:45,807 - [INFO] --> Initiated about window
+2023-12-25 23:23:54,719 - [INFO] --> Closed session []
+2023-12-25 23:24:06,661 - [INFO] --> Loaded session [Narayani_DESKTOP-1GI7Q43_25-12-2023--]
+2023-12-25 23:24:13,300 - [INFO] --> Exiting RegAnalyser ...

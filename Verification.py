@@ -4,7 +4,6 @@ import os
 original = []
 copy = []
 
-
 def verify_dump(path):
     global copy
     global original
@@ -106,7 +105,3 @@ def is_valid_regacquire(name):
 
     except FileNotFoundError:
         return False
-
-
-# verify_dump(
-#     "F:/UP_2017_CS_HN_S1/COS700/Projects/DF-Research/Program/Analysis/RegSmart/Avinash_DESKTOP-IAP0BLH_2017-06-27")
