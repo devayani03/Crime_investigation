@@ -1062,10 +1062,13 @@ class UserInterface:
     # Gathers data for OS analysis, including product details, user profiles, and user accounts
     def os_analysis_data(self):
         try:
+             # Setting default values for some OS-related properties
             self.os['RegisteredOrganization'] = "N/A"
             self.os['RegisteredOwner'] = "N/A"
             self.os['ReleaseId'] = ""
+            # Accessing the registry key for Windows NT Current Version
             key = self.software.open("Microsoft\\Windows NT\\CurrentVersion") #hive path
+            # Iterating through values in the registry key
             for v in key.values():
                 if v.name() == "ReleaseId":
                     self.os['ReleaseId'] = v.value()
@@ -1086,15 +1089,18 @@ class UserInterface:
                 if v.name() == "CurrentBuild":
                     self.os['CurrentBuild'] = v.value()
         except Exception:
+            # Handling exceptions and logging errors
             logging.error('An error occurred in (OS_analysis - Current Version)', exc_info=True,
                           extra={'investigator': 'RegAnalyser'})
 
         try:
+            # Accessing the registry key for ControlSet and retrieving the 'windir' value
             key = self.system.open("ControlSet00" + self.control_set + "\\Control\\Session Manager\\Environment")
             for v in key.values():
                 if v.name() == "windir":
                     self.sa_windir = v.value()
         except Exception:
+            # Handling exceptions and logging errors
             logging.error('An error occurred in (OS_analysis - WinDir)', exc_info=True,
                           extra={'investigator': 'RegAnalyser'})
 
@@ -1104,13 +1110,16 @@ class UserInterface:
         accounts = []
 
         try:
+            # Accessing the registry key for ProfileList and retrieving SIDs
             key = self.software.open("Microsoft\\Windows NT\\CurrentVersion\\ProfileList")
             for v in key.subkeys():
                 sid_list.append(v.name())
         except Exception:
+            # Handling exceptions and logging errors
             logging.error('An error occurred in (OS_analysis - SID)', exc_info=True, extra={'investigator': 'RegAnalyser'})
 
         try:
+            # Iterating through SIDs and retrieving information about user profiles
             for sid in sid_list:
                 k = self.software.open("Microsoft\\Windows NT\\CurrentVersion\\ProfileList\\" + sid)
                 for v in k.values():
@@ -1123,21 +1132,25 @@ class UserInterface:
                           extra={'investigator': 'RegAnalyser'})
 
         try:
+            # Accessing the registry key for user accounts
             key = self.sam.open("SAM\\Domains\\Account\\Users\\Names")
             for v in key.subkeys():
                 accounts.append(v.name())
         except Exception:
             logging.error('An error occurred in (OS_analysis - User accounts)', exc_info=True,
                           extra={'investigator': 'RegAnalyser'})
-
+         # Returning the collected information
         return self.os, sid_list, users_paths_list, mapping_list, accounts
 
     # Displays an OS analysis window with relevant information
     def os_analysis(self):
         self.rep_log("Viewed os analysis")
         try:
+            # Check if necessary data (directory and software) is available
             if self.directory != "" and self.software != "":
                 logging.info("OS Analysis on [" + self.full_session + "]", extra={'investigator': self.investigator})
+                
+                # Set up the Tkinter window for displaying OS analysis results
                 tk = Tk()
                 tk.grid_columnconfigure(0, weight=1)
                 tk.grid_columnconfigure(1, weight=1)
@@ -1149,8 +1162,10 @@ class UserInterface:
                 tk.title("RegAnalyser: OS Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
+                # Retrieve OS analysis data
                 self.os, sid_list, users_paths_list, mapping_list, accounts = self.os_analysis_data()
 
+                # Display OS analysis information in the Tkinter window
                 r = 1
                 Label(tk, font="Arial 14 bold", fg="white", bg="cyan", text="OS Analysis \n[" + self.full_session + "]") \
                     .grid(row=0, columnspan=4, sticky="nsew")
@@ -1197,6 +1212,7 @@ class UserInterface:
                 m.grid(row=r, column=1)
                 r += 1
 
+                # Display user profiles using Treeview
                 txt_frm = Frame(tk, width=350, height=150)
                 txt_frm.grid(row=r, column=1, sticky="nsew")
                 txt_frm.grid_propagate(False)
@@ -1243,9 +1259,11 @@ class UserInterface:
                 tk.lift()
 
             else:
+                # Display an error message if no session is loaded
                 self.rep_log("No session loaded")
                 self.display_message('error', 'Please click on a session to load!')
         except Exception:
+            # Handle exceptions and log errors
             logging.error('An error occurred in (OS_analysis)', exc_info=True, extra={'investigator': 'RegAnalyser'})
             self.display_message('error', 'An error occurred while processing\n Please try again.')
 
@@ -1254,10 +1272,12 @@ class UserInterface:
 
         self.rep_log("Browsing Registry with Registry Viewer")
         try:
+            # Check if necessary data (directory and software) is available
             if self.directory != "" and self.software != "":
                 hives = ""
                 path = os.getcwd() + "\\data\\sessions\\" + self.full_session + "\\"
 
+                # Prepare a list of registry hives to be opened by Registry Viewer
                 hives += " " + path + "DEFAULT"
                 hives += " " + path + "NTUSER.DAT"
                 hives += " " + path + "SAM"
@@ -1271,6 +1291,7 @@ class UserInterface:
                                            close_fds=False, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
 
             else:
+                # Display an error message if no session is loaded
                 self.display_message('error', 'Please click on a session to load!')
 
         except Exception as ee:
@@ -1286,6 +1307,7 @@ class UserInterface:
         matched = []
 
         try:
+            # Retrieve start-up programs from the registry
             key = self.software.open("Microsoft\\Windows NT\\CurrentVersion\\NetworkCards")
             for v in key.subkeys():
                 for n in v.values():
@@ -1296,6 +1318,7 @@ class UserInterface:
                           extra={'investigator': 'RegAnalyser'})
 
         try:
+            # Retrieve registered applications from the registry
             key = self.software.open("Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\Nla\\Cache\\Intranet")
             for v in key.subkeys():
                 intranet.append(v.name())
@@ -1304,6 +1327,7 @@ class UserInterface:
                           extra={'investigator': 'RegAnalyser'})
 
         try:
+            # Retrieve installed programs from the registry
             key = self.software.open("Microsoft\\Windows NT\\CurrentVersion\\NetworkList\\Nla\\Wireless")
             for v in key.subkeys():
                 wireless.append(v.name())
@@ -1407,9 +1431,11 @@ class UserInterface:
     def application_analysis(self):
         self.rep_log("Viewed application analysis")
         try:
+            # Check if necessary data (directory and software) is available
             if self.directory != "" and self.software != "":
                 logging.info("Application Analysis on [" + self.full_session + "]",
                              extra={'investigator': self.investigator})
+                # Set up the Tkinter window for displaying application analysis results
                 tk = Tk()
                 tk.grid_columnconfigure(0, weight=1)
                 tk.grid_columnconfigure(1, weight=1)
@@ -1547,9 +1573,11 @@ class UserInterface:
     def network_analysis(self):
         self.rep_log("Viewed network analysis")
         try:
+            # Check if necessary data (directory and software) is available
             if self.directory != "" and self.software != "":
                 logging.info("Network Analysis on [" + self.full_session + "]",
                              extra={'investigator': self.investigator})
+                # Set up the Tkinter window for displaying network analysis results
                 tk = Tk()
                 tk.grid_columnconfigure(0, weight=1)
                 tk.grid_columnconfigure(1, weight=1)
@@ -1561,6 +1589,7 @@ class UserInterface:
                 tk.title("RegAnalyser: Application Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
+                # Retrieve network analysis data
                 cards, intranet, wireless, matched = self.network_analysis_data()
 
                 r = 1
@@ -1575,6 +1604,8 @@ class UserInterface:
                 lb_frm.grid_propagate(False)
                 lb_frm.grid_rowconfigure(0, weight=1)
                 lb_frm.grid_columnconfigure(0, weight=1)
+    
+                 # Display network cards in a listbox  
                 lb = Listbox(lb_frm)
                 for a in cards:
                     lb.insert(END, a)
@@ -1593,6 +1624,8 @@ class UserInterface:
                 lb_frm.grid_propagate(False)
                 lb_frm.grid_rowconfigure(0, weight=1)
                 lb_frm.grid_columnconfigure(0, weight=1)
+
+                 # Display intranet networks in a listbox
                 lb = Listbox(lb_frm)
                 for a in intranet:
                     lb.insert(END, a)
@@ -1610,6 +1643,8 @@ class UserInterface:
                 txt_frm.grid_propagate(False)
                 txt_frm.grid_rowconfigure(0, weight=1)
                 txt_frm.grid_columnconfigure(0, weight=1)
+             
+                # Display wireless network information in a Treeview
                 tv = tkk.Treeview(txt_frm)
                 tv['columns'] = ('Created', 'LastConnected', 'ID')
                 tv.heading("#0", text='Description')
@@ -1646,10 +1681,13 @@ class UserInterface:
     # Retrieve device analysis data, specifically information about printers and USB devices.
     def device_analysis_data(self):
         logging.info("Device Analysis on [" + self.full_session + "]", extra={'investigator': self.investigator})
+        
+        # Initialize lists to store printer and USB device information
         printer = []
         usb = []
 
         try:
+            # Retrieve printer information from the registry
             key = self.system.open("ControlSet00" + self.control_set + "\\Control\\Print\\Environments")
             for v in key.subkeys():
                 for s in v.subkeys():
@@ -1663,6 +1701,7 @@ class UserInterface:
                           extra={'investigator': 'RegAnalyser'})
 
         try:
+            # Retrieve USB device information from the registry
             key = self.system.open("ControlSet00" + self.control_set + "\\Enum\\USBSTOR")
             for v in key.subkeys():
                 name = v.name().split("&")
@@ -1698,13 +1737,18 @@ class UserInterface:
         except Exception:
             logging.error('An error occurred in (device_analysis - USB)', exc_info=True,
                           extra={'investigator': 'RegAnalyser'})
+        
+        # Return the gathered printer and USB device information
         return printer, usb
 
     # Display device analysis information in a Tkinter window
     def device_analysis(self):
         self.rep_log("Viewed device analysis")
         try:
+            # Check if necessary data (directory and system) is available
             if self.directory != "" and self.system != "":
+                
+                # Set up the Tkinter window for displaying device analysis results
                 tk = Tk()
                 tk.grid_columnconfigure(0, weight=1)
                 tk.grid_columnconfigure(1, weight=2)
@@ -1716,6 +1760,7 @@ class UserInterface:
                 tk.title("RegAnalyser: Application Analysis")
                 tk.iconbitmap("data/img/icon.ico")
 
+                # Retrieve device analysis data
                 printer, usb = self.device_analysis_data()
 
                 r = 1
@@ -1730,6 +1775,8 @@ class UserInterface:
                 lb_frm.grid_propagate(False)
                 lb_frm.grid_rowconfigure(0, weight=1)
                 lb_frm.grid_columnconfigure(0, weight=1)
+    
+                # Display printers in a listbox  
                 lb = Listbox(lb_frm)
                 for a in printer:
                     lb.insert(END, a)
@@ -1747,6 +1794,8 @@ class UserInterface:
                 txt_frm.grid_propagate(False)
                 txt_frm.grid_rowconfigure(0, weight=1)
                 txt_frm.grid_columnconfigure(0, weight=1)
+                
+                # Display USB device information in a Treeview
                 tv = tkk.Treeview(txt_frm)
                 tv['columns'] = ('Vendor', 'Product', 'Revision')
                 tv.heading("#0", text='Type')
@@ -1779,6 +1828,7 @@ class UserInterface:
                 tk.lift()
 
             else:
+                # Log if no session is loaded
                 self.rep_log("No session loaded")
                 self.display_message('error', 'Please click on a session to load!')
         except Exception:
@@ -1821,6 +1871,7 @@ class UserInterface:
                 self.location.grid(row=r, column=0, sticky="nsew", columnspan=2)
                 r += 1
 
+                # Set default values for report options
                 self.system_report.set(1)
                 self.os_report.set(1)
                 self.user_app_report.set(1)
@@ -1852,12 +1903,14 @@ class UserInterface:
                 ).grid(row=r, column=1, sticky=W)
                 r += 6
 
+                # Create button for generating the report
                 rep = Button(self.report, compound=LEFT, text="Generate Report", anchor=W, justify=LEFT,
                              command=self.generate_report)
 
                 rep.grid(row=r, columnspan=2, pady=20)
 
             else:
+                # Log if no session is loaded
                 self.rep_log("No session loaded, not showing report menu")
                 self.display_message('error', 'Please select a valid session')
         except Exception as ee:
@@ -1869,17 +1922,22 @@ class UserInterface:
     # Generate a report based on the selected options and save it to a user-specified location.
     def generate_report(self):
         try:
+            # Set the status and start progress for verification
             self.set_status("Verifying dumps ...")
             self.progress.start()
             self.rep_log("Generating report")
             self.display_message("info",
                                  "Creating report\nPlease wait while dumps are being verified ...\nPress OK to continue.")
 
+            # Verify the dump integrity
             tmp = Verification.verify_dump(self.directory)
             # tmp = 1
+            # Retrieve session configuration
             case = self.get_config(self.full_session)
             self.progress.stop()
             self.set_status("Done")
+
+             # Check if the session is valid
             if case == "Error occurred":
                 self.display_message("error", "Session is not valid. Report cannot be created.")
                 return
@@ -1887,16 +1945,21 @@ class UserInterface:
             case = case.split(":")[5]
 
             if tmp:
+
+                # Initialize a list for business information
                 b = [self.business.get()]
                 tmp = self.location.get(1.0, END).split('\n')
                 self.business_setting = self.business.get().strip("\n")
                 self.location_setting = tmp
                 for i in tmp:
                     b.append(i)
+
+                # Log the update of business information
                 self.rep_log("Updating the business information.")
                 self.update_settings(True)
                 data = {}
 
+                # Include analysis data based on report options
                 if self.os_report.get():
                     data["os"] = self.os_analysis_data()
 
@@ -1912,9 +1975,11 @@ class UserInterface:
                 if self.device_report.get():
                     data["device"] = self.device_analysis_data()
 
+                # Ask the user for the report file destination
                 file = fd.asksaveasfilename(defaultextension=".pdf", initialfile=self.full_session,
                                             filetypes=[("PDF Document", "*.pdf")])
 
+                # Handle cases where the user cancels or enters an invalid file
                 if not file or file == "" or file == " ":
                     self.rep_log("Failed to set the saving destination.")
                     file = fd.asksaveasfilename(defaultextension=".pdf", initialfile=self.full_session,
@@ -1925,6 +1990,7 @@ class UserInterface:
                     self.report.destroy()
                     return
 
+                # Start progress for report generation
                 self.progress.start()
                 self.set_status("Generating report ...")
                 self.display_message("info", "Generating Report\nPlease click OK to continue.")
@@ -1932,11 +1998,13 @@ class UserInterface:
                                         self.report_log, self.timeline_log, data)
                 self.display_message('info', 'Your report has been saved.')
 
+                # Clean up and close the report window
                 self.report.destroy()
                 self.progress.stop()
                 self.set_status("DONE")
 
             else:
+                # Display an error message if the session integrity is violated
                 self.display_message('error', 'Integrity of the session violated, Report cannot be created.')
 
         except Exception as ee:

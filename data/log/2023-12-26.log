@@ -5,3 +5,59 @@
 2023-12-26 01:17:30,150 - [INFO] --> Network Analysis on [Narayani_DESKTOP-1GI7Q43_25-12-2023--]
 2023-12-26 01:17:33,302 - [INFO] --> Application Analysis on [Narayani_DESKTOP-1GI7Q43_25-12-2023--]
 2023-12-26 01:17:37,427 - [INFO] --> Exiting RegAnalyser ...
+2023-12-26 09:27:44,189 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-26 09:27:44,342 - [INFO] --> Initiated about window
+2023-12-26 09:38:46,388 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-26 09:38:46,519 - [INFO] --> Initiated about window
+2023-12-26 10:02:23,103 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-26 10:02:23,238 - [INFO] --> Initiated about window
+2023-12-26 10:04:14,146 - [INFO] --> OS Analysis on [Devayani_LAPTOP-7PE71QET_23-12-2023--]
+2023-12-26 10:04:16,499 - [INFO] --> Network Analysis on [Devayani_LAPTOP-7PE71QET_23-12-2023--]
+2023-12-26 10:04:19,397 - [INFO] --> Device Analysis on [Devayani_LAPTOP-7PE71QET_23-12-2023--]
+2023-12-26 10:04:19,401 - [ERROR] --> An error occurred in (device_analysis - USB)
+Traceback (most recent call last):
+  File "C:\Users\Devayani\Desktop\se-final-project\Crime_investigation\Interface.py", line 1705, in device_analysis_data
+    key = self.system.open("ControlSet00" + self.control_set + "\\Enum\\USBSTOR")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\site-packages\Registry\Registry.py", line 442, in open
+    return RegistryKey(self._regf.first_key()).find_key(path)
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\site-packages\Registry\Registry.py", line 357, in find_key
+    return self.subkey(immediate).find_key(future)
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\site-packages\Registry\Registry.py", line 357, in find_key
+    return self.subkey(immediate).find_key(future)
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\site-packages\Registry\Registry.py", line 357, in find_key
+    return self.subkey(immediate).find_key(future)
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\site-packages\Registry\Registry.py", line 319, in subkey
+    raise RegistryKeyNotFoundException(self.path() + "\\" + name)
+Registry.Registry.RegistryKeyNotFoundException: Registry key not found: ROOT\ControlSet001\Enum\USBSTOR
+2023-12-26 10:04:32,419 - [DEBUG] --> Starting new HTTPS connection (1): www.virustotal.com:443
+2023-12-26 10:04:34,943 - [DEBUG] --> https://www.virustotal.com:443 "POST /vtapi/v2/file/scan HTTP/1.1" 200 636
+2023-12-26 10:04:34,950 - [DEBUG] --> Starting new HTTPS connection (1): www.virustotal.com:443
+2023-12-26 10:04:36,039 - [DEBUG] --> https://www.virustotal.com:443 "GET /vtapi/v2/file/report?apikey=788912950ab73ac48ec575a041351e944cda861eaf1c90f2cf38a2aad5cf2b38&resource=c169467a399a14d4b1b782b7db786b97bbf30dd01b5f919183869136eca7adfc HTTP/1.1" 200 235
+2023-12-26 10:05:01,053 - [DEBUG] --> Starting new HTTPS connection (1): www.virustotal.com:443
+2023-12-26 10:05:02,514 - [DEBUG] --> https://www.virustotal.com:443 "GET /vtapi/v2/file/report?apikey=788912950ab73ac48ec575a041351e944cda861eaf1c90f2cf38a2aad5cf2b38&resource=c169467a399a14d4b1b782b7db786b97bbf30dd01b5f919183869136eca7adfc HTTP/1.1" 200 235
+2023-12-26 10:05:27,531 - [DEBUG] --> Starting new HTTPS connection (1): www.virustotal.com:443
+2023-12-26 10:05:28,503 - [DEBUG] --> https://www.virustotal.com:443 "GET /vtapi/v2/file/report?apikey=788912950ab73ac48ec575a041351e944cda861eaf1c90f2cf38a2aad5cf2b38&resource=c169467a399a14d4b1b782b7db786b97bbf30dd01b5f919183869136eca7adfc HTTP/1.1" 200 6366
+2023-12-26 10:06:00,707 - [INFO] --> Application Analysis on [Devayani_LAPTOP-7PE71QET_23-12-2023--]
+2023-12-26 10:09:44,847 - [INFO] --> [RegAnalyser] RegAnalyser Started
+2023-12-26 10:09:44,961 - [INFO] --> Initiated about window
+2023-12-26 10:09:59,447 - [INFO] --> Closed session []
+2023-12-26 10:10:14,519 - [INFO] --> Loaded session [Devayani_LAPTOP-7PE71QET_23-12-2023--]
+2023-12-26 10:10:15,731 - [INFO] --> OS Analysis on [Devayani_LAPTOP-7PE71QET_23-12-2023--]
+2023-12-26 10:10:18,912 - [INFO] --> Network Analysis on [Devayani_LAPTOP-7PE71QET_23-12-2023--]
+2023-12-26 10:10:21,379 - [INFO] --> Device Analysis on [Devayani_LAPTOP-7PE71QET_23-12-2023--]
+2023-12-26 10:10:21,381 - [ERROR] --> An error occurred in (device_analysis - USB)
+Traceback (most recent call last):
+  File "C:\Users\Devayani\Desktop\se-final-project\Crime_investigation\Interface.py", line 1705, in device_analysis_data
+    key = self.system.open("ControlSet00" + self.control_set + "\\Enum\\USBSTOR")
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\site-packages\Registry\Registry.py", line 442, in open
+    return RegistryKey(self._regf.first_key()).find_key(path)
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\site-packages\Registry\Registry.py", line 357, in find_key
+    return self.subkey(immediate).find_key(future)
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\site-packages\Registry\Registry.py", line 357, in find_key
+    return self.subkey(immediate).find_key(future)
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\site-packages\Registry\Registry.py", line 357, in find_key
+    return self.subkey(immediate).find_key(future)
+  File "C:\Users\Devayani\AppData\Local\Programs\Python\Python310\lib\site-packages\Registry\Registry.py", line 319, in subkey
+    raise RegistryKeyNotFoundException(self.path() + "\\" + name)
+Registry.Registry.RegistryKeyNotFoundException: Registry key not found: ROOT\ControlSet001\Enum\USBSTOR
+2023-12-26 10:10:23,619 - [INFO] --> Application Analysis on [Devayani_LAPTOP-7PE71QET_23-12-2023--]
